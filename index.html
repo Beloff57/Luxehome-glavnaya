@@ -94,13 +94,13 @@
   </div>
 </div>
   <div class="col-l2">
-    <span class="scroll-line"></span>
+      <span class="line-v-anim"></span>
+
+  <!-- ЧЕРНАЯ ГОРИЗОНТАЛЬ -->
+  <span class="line-h-anim"></span>
     <div class="foto-cont-nr-2">
     <img src="images/nr-2.png" alt="" class="f-col-l-2">
     </div>
-    <span class="v-top"></span>
-  <span class="v-bottom"></span>
-  <span class="h-line-animate"></span>
     <div class="l-block-3-line-2"></div>
     <div class="text-col-2">
       <p class="teg-col-2">2024</p>
@@ -139,14 +139,39 @@
     <p class="bb-p-1">Делаем работу под ключ от замера до финальной навески</p>
     <p class="bb-p-2">Четкий и ответственный надзор каждого этапа работы</p>
   </div>
-  <div class="g-bb-nav">
-    <span>Замер</span>
-    <span>Дизайн</span>
-    <span>Пошив</span>
-    <span>Монтаж карниза</span>
-    <span>Навеска</span>
-    <span>Эмоции</span>
-  </div>
+<div class="g-bb-nav">
+  <span data-index="0" class="is-active">
+    Замер
+    <span class="nav-number">1</span>
+    <span class="underline"></span>
+  </span>
+  <span data-index="1">
+    Дизайн
+    <span class="nav-number">2</span>
+    <span class="underline"></span>
+  </span>
+  <span data-index="2">
+    Пошив
+    <span class="nav-number">3</span>
+    <span class="underline"></span>
+  </span>
+  <span data-index="3">
+    Монтаж карниза
+    <span class="nav-number">4</span>
+    <span class="underline"></span>
+  </span>
+  <span data-index="4">
+    Навеска
+    <span class="nav-number">5</span>
+    <span class="underline"></span>
+  </span>
+  <span data-index="5">
+    Эмоции
+    <span class="nav-number">6</span>
+    <span class="underline"></span>
+  </span>
+</div>
+
   <div class="g-bb-nav-content">
     <div class="bb-card-content">
       <p>Контролирует сроки создания и реализации, и все организационные моменты, заводит на проект внешних подрядчиков</p>
@@ -195,6 +220,7 @@
     <div class="bb-vertical-line-s2"></div>
     <div class="g-art-st1">
       <div class="g-art-text">
+        <div class="teg-article">6 минут</div>
         <h2 class="g-art-zag">Как выбрать текстиль правильно</h2>
         <p class="g-art-opis">Рассказываем как сделать выбор элементов интерьера простым и говорим о важных нюансах</p>
       </div>
@@ -204,6 +230,7 @@
     </div>
     <div class="g-art-st1">
       <div class="g-art-text">
+        <div class="teg-article">5 минут</div>
         <h2 class="g-art-zag">Как выбрать текстиль правильно</h2>
         <p class="g-art-opis">Рассказываем как сделать выбор элементов интерьера простым и говорим о важных нюансах</p>
       </div>
@@ -617,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const shadowX = -18 * progress;
             const shadowY = 18 * progress;
-            const blur = 35 * progress;
+            const blur = 40 * progress;
             const alpha = 0.25 * progress;
 
             img.style.boxShadow = `
@@ -630,61 +657,6 @@ document.addEventListener('DOMContentLoaded', () => {
         animate();
     });
 });
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const block2 = document.querySelector('.col-l2');
-    if (!block2) return;
-
-    const vTop = block2.querySelector('.v-top');
-    const vBottom = block2.querySelector('.v-bottom');
-    const hLine = block2.querySelector('.h-line-animate');
-
-    const vh = window.innerHeight;
-    const inertia = 0.1;
-
-    let currentV = 0;
-    let currentH = 0;
-    let hUnlocked = false;
-
-    function clamp(v) { return Math.max(0, Math.min(1, v)); }
-
-    function animateBlock2() {
-        const rect = block2.getBoundingClientRect();
-
-        // ---------- ВЕРТИКАЛЬ ----------
-        const vStart = vh * 0.75;
-        const vEnd = vh * 0.35;
-        const targetV = clamp((vStart - rect.top) / (vStart - vEnd));
-        currentV += (targetV - currentV) * inertia;
-
-        if (vTop) vTop.style.transform = `scaleY(${currentV})`;
-        if (vBottom) vBottom.style.transform = `scaleY(${currentV})`;
-
-        // ---------- проверка соединения вертикальных ----------
-        if (!hUnlocked && currentV >= 0.995) {
-            hUnlocked = true;
-            // задаём текущий scaleX для горизонтальной линии сразу, чтобы избежать скачка
-            const hStart = vh * 0.45;
-            const hEnd = vh * 0.25;
-            currentH = clamp((hStart - rect.top) / (hStart - hEnd));
-        }
-
-        // ---------- ГОРИЗОНТАЛЬ (только после соединения вертикальных) ----------
-        if (hUnlocked) {
-            const hStart = vh * 0.45;
-            const hEnd = vh * 0.25;
-            const targetH = clamp((hStart - rect.top) / (hStart - hEnd));
-            currentH += (targetH - currentH) * inertia;
-            if (hLine) hLine.style.transform = `scaleX(${currentH})`;
-        }
-
-        requestAnimationFrame(animateBlock2);
-    }
-
-    animateBlock2();
-});
-
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -839,79 +811,210 @@ window.addEventListener('scroll', () => {
 });
 </script>
 <script>
-const hLine = document.querySelector('.cb-line-anim-h');
-const v1Line = document.querySelector('.cb-line-anim-v1');
-const v2Line = document.querySelector('.cb-line-anim-v2');
+document.addEventListener('DOMContentLoaded', () => {
 
-const hTotalWidth = 95.7; // ширина горизонтали в vw
-const v1Pos = 43;
-const v2Pos = 85.5;
-const vHeightVW = 27.42; // длина вертикалей в vw
+  const hLine  = document.querySelector('.cb-line-anim-h');
+  const v1Line = document.querySelector('.cb-line-anim-v1');
+  const v2Line = document.querySelector('.cb-line-anim-v2');
 
-const vSpeedMultiplier = 10; // вертикали растут быстрее горизонтали
-const inertia = 0.16; // коэффициент плавности, 0.1-0.2 оптимально
+  // ⛔ если элементов нет — выходим, ничего не ломаем
+  if (!hLine || !v1Line || !v2Line) return;
 
-let targetH = 0;
-let currentH = 0;
-let targetV1 = 0;
-let currentV1 = 0;
-let targetV2 = 0;
-let currentV2 = 0;
+  const hTotalWidth = 95.7; // ширина горизонтали в vw
+  const v1Pos = 43;
+  const v2Pos = 85.5;
+  const vHeightVW = 27.42; // длина вертикалей в vw
 
-function updateTargets() {
-  const rect = hLine.getBoundingClientRect();
-  const windowH = window.innerHeight;
+  const vSpeedMultiplier = 10;
+  const inertia = 0.16;
 
-  const start = windowH * 0.8;
-  const end = windowH * 0.35;
+  let targetH = 0;
+  let currentH = 0;
+  let targetV1 = 0;
+  let currentV1 = 0;
+  let targetV2 = 0;
+  let currentV2 = 0;
 
-  let scrollProgress = (start - rect.top) / (start - end);
-  scrollProgress = Math.min(Math.max(scrollProgress, 0), 1);
+  function updateTargets() {
+    const rect = hLine.getBoundingClientRect();
+    const windowH = window.innerHeight;
 
-  // Горизонталь
-  targetH = scrollProgress * hTotalWidth;
+    const start = windowH * 0.8;
+    const end   = windowH * 0.35;
 
-  // Первая вертикаль
-  if (targetH >= v1Pos) {
-    let vProgress1 = (scrollProgress - v1Pos / hTotalWidth) * vSpeedMultiplier;
-    vProgress1 = Math.min(Math.max(vProgress1, 0), 1);
-    targetV1 = vProgress1 * vHeightVW;
-  } else {
-    targetV1 = 0;
+    let scrollProgress = (start - rect.top) / (start - end);
+    scrollProgress = Math.min(Math.max(scrollProgress, 0), 1);
+
+    // Горизонталь
+    targetH = scrollProgress * hTotalWidth;
+
+    // Первая вертикаль
+    if (targetH >= v1Pos) {
+      let vProgress1 =
+        (scrollProgress - v1Pos / hTotalWidth) * vSpeedMultiplier;
+      vProgress1 = Math.min(Math.max(vProgress1, 0), 1);
+      targetV1 = vProgress1 * vHeightVW;
+    } else {
+      targetV1 = 0;
+    }
+
+    // Вторая вертикаль
+    if (targetH >= v2Pos) {
+      let vProgress2 =
+        (scrollProgress - v2Pos / hTotalWidth) * vSpeedMultiplier;
+      vProgress2 = Math.min(Math.max(vProgress2, 0), 1);
+      targetV2 = vProgress2 * vHeightVW;
+    } else {
+      targetV2 = 0;
+    }
   }
 
-  // Вторая вертикаль
-  if (targetH >= v2Pos) {
-    let vProgress2 = (scrollProgress - v2Pos / hTotalWidth) * vSpeedMultiplier;
-    vProgress2 = Math.min(Math.max(vProgress2, 0), 1);
-    targetV2 = vProgress2 * vHeightVW;
-  } else {
-    targetV2 = 0;
+  function animate() {
+    // Горизонталь
+    currentH += (targetH - currentH) * inertia;
+    hLine.style.width = `${currentH}vw`;
+
+    // Вертикали
+    currentV1 += (targetV1 - currentV1) * inertia;
+    v1Line.style.height = `${currentV1}vw`;
+
+    currentV2 += (targetV2 - currentV2) * inertia;
+    v2Line.style.height = `${currentV2}vw`;
+
+    requestAnimationFrame(animate);
   }
+
+  window.addEventListener('scroll', updateTargets);
+
+  // первичный расчёт (важно!)
+  updateTargets();
+  animate();
+
+});
+</script>
+
+<script>
+const block = document.querySelector('.col-l2');
+const vLine2 = document.querySelector('.line-v-anim');
+const hLine2 = document.querySelector('.line-h-anim');
+
+let target = 0;
+let current = 0;
+
+function clamp(v, min = 0, max = 1) {
+  return Math.min(Math.max(v, min), max);
 }
 
-// функция плавной интерполяции
+// абсолютная позиция блока в документе
+function getOffsetTop(el) {
+  let top = 0;
+  while (el) {
+    top += el.offsetTop;
+    el = el.offsetParent;
+  }
+  return top;
+}
+
+const blockTop = getOffsetTop(block);
+const blockHeight = block.offsetHeight;
+
+function onScroll() {
+  const scrollY = window.scrollY;
+  const vh = window.innerHeight;
+
+  const start = blockTop - vh * 0.75;
+  const end   = blockTop + blockHeight - vh * 0.35;
+
+  target = clamp((scrollY - start) / (end - start));
+}
+
 function animate() {
-  // Горизонталь
-  currentH += (targetH - currentH) * inertia;
-  hLine.style.width = `calc(${currentH}vw)`;
+  current += (target - current) * 0.1;
 
-  // Вертикали
-  currentV1 += (targetV1 - currentV1) * inertia;
-  v1Line.style.height = `${currentV1}vw`;
+  // 🔹 ВЕРТИКАЛЬ — ВСЕГДА 0 → 1
+  const v = clamp(current);
+  vLine2.style.transform = `translateX(-50%) scaleY(${v})`;
 
-  currentV2 += (targetV2 - currentV2) * inertia;
-  v2Line.style.height = `${currentV2}vw`;
+  // 🔹 ГОРИЗОНТАЛЬ — СВОЙ СТАРТ
+  const hStart = 0.3; // ← ВОТ ЭТО МЕНЯЕШЬ
+  const h = clamp((current - hStart) / (1 - hStart));
+  hLine2.style.transform = `scaleX(${h})`;
 
   requestAnimationFrame(animate);
 }
 
-// слушаем скролл и обновляем целевые значения
-window.addEventListener('scroll', updateTargets);
 
-// запускаем анимацию
+window.addEventListener('scroll', onScroll);
 animate();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const navItems = document.querySelectorAll('.g-bb-nav span');
+  const content = document.querySelector('.g-bb-nav-content');
 
+  const textEl = content.querySelector('p');
+  const videoImg = content.querySelector('.v-pr1');
+
+  let activeIndex = 0;
+  let isAnimating = false;
+
+const data = [ 
+  { text: 'Контролирует сроки создания и реализации, и все организационные моменты, заводит на проект внешних подрядчиков', video: 'images/v-pr1.svg' },
+  { text: 'Разрабатывает визуальную концепцию, подбирает ткани и формирует общий стиль проекта', video: 'images/v-pr1.svg' }, 
+  { text: 'Производство изделий с точным соблюдением размеров и утверждённых материалов', video: 'images/v-pr1.svg' }, 
+  { text: 'Профессиональный монтаж карнизов с точной геометрией и надёжной фиксацией', video: 'images/v-pr1.svg' }, 
+  { text: 'Навеска изделий с выверкой складок и финальной подгонкой', video: 'images/v-pr1.svg' }, 
+  { text: 'Финальный результат, который вызывает эмоции и завершает образ пространства', video: 'images/v-pr1.svg' } ];
+
+  function changeContent(index) {
+    if (index === activeIndex || isAnimating) return;
+    isAnimating = true;
+
+    content.classList.add('is-hidden');
+    setTimeout(() => {
+      textEl.textContent = data[index].text;
+      videoImg.src = data[index].video;
+      content.classList.remove('is-hidden');
+      activeIndex = index;
+      isAnimating = false;
+    }, 450);
+  }
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const index = Number(item.dataset.index);
+
+      navItems.forEach(i => i.classList.remove('is-active'));
+      item.classList.add('is-active');
+
+      changeContent(index);
+    });
+  });
+});
+
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+  const h2Elems = document.querySelectorAll('.text-col-w h2');
+  const opisElems = document.querySelectorAll('.opis-col-w');
+
+  const allElems = [...h2Elems, ...opisElems];
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target); // срабатывает только один раз
+      }
+    });
+  }, {
+    threshold: 0.25 // элемент считается видимым, когда 25% высоты видны
+  });
+
+  allElems.forEach(el => observer.observe(el));
+
+});
 </script>
 </body>
 </html>
