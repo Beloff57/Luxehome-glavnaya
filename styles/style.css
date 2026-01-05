@@ -61,10 +61,11 @@ body {
 
 .podzag-glav p {
     line-height: 148%;
-    font-size: 0.88vw;
+    font-size: 1vw;
     font-family: var(--montserrat);
     width: 23vw;
     margin: 0;
+    font-weight: 400;
 }
 
 
@@ -79,7 +80,7 @@ body {
   display: inline-flex;
   justify-content: flex-end; 
   overflow: hidden;
-  gap: 0.44vw;
+  gap: 0.87vw;
 }
 
 .icon-part-tw {
@@ -95,6 +96,7 @@ body {
 }
 
 .icon-part {
+  margin-top: 0.1vw;
   width: 2.44vw;
   display: flex;
   margin-right: 0.2vw;
@@ -116,11 +118,11 @@ body {
   margin: 0;
   align-items: center;
   font-family: var(--montserrat);
-  font-size: 0.875vw;
+  font-size: 1vw;
   color: #040404;
   line-height: 113.9%;
   letter-spacing: 0%;
-  font-weight: 400;
+  font-weight: 500;
   box-sizing: border-box;
 }
 
@@ -189,7 +191,7 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 1px;
+  height: 2px;
   background-color: #000000;
   transform: scaleX(0);
   transform-origin: left;
@@ -388,6 +390,14 @@ body {
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.teg-article {
+  width: 4.1vw;
+  font-size: 1vw;
+  border: 1px solid #000000;
+  padding: 0.4vw 1vw;
+  border-radius: 1.47vw;
+}
+
 .zag-action:hover .zag-text {
   transform: translateX(0);
 }
@@ -497,7 +507,7 @@ body {
     margin-left: 2.13vw;
     margin-top: 1.3vw;
     margin-bottom: 2.06vw;
-    width: 95.7%;
+    width: 95.5%;
     height: 1px;
     background-color: #D7D7D7;
     overflow: hidden;
@@ -540,7 +550,7 @@ body {
 
 .h-left-2 {
   left: 0;
-  width: 51.7%;
+  width: 51%;
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -548,7 +558,7 @@ body {
 /* правая — растёт справа → влево */
 .h-right-2 {
   right: 0;
-  width: 48.3%;
+  width: 49%;
   transform: scaleX(0);
   transform-origin: right;
 }
@@ -563,44 +573,6 @@ body {
   background-color: #000000;
   transform: scaleY(0);
   transform-origin: top;
-}
-
-.v-top, .v-bottom {
-  position: absolute;
-  left: 32.5vw;
-  width: 1px;
-  background-color: #000;
-  z-index: 5;
-  will-change: transform;
-}
-
-.v-top {
-  top: 2.5vw;
-  height: 37%; /* половина высоты блока */
-  transform: scaleY(0);
-  transform-origin: top; /* рост вниз */
-  z-index: 1;
-}
-
-.v-bottom {
-  bottom: 1.5vw;
-  height: 85%; /* половина высоты блока */
-  transform: scaleY(0);
-  transform-origin: bottom; /* рост вверх */
-  z-index: 1;
-}
-
-/* Горизонтальная линия */
-.h-line-animate {
-  position: absolute;
-  top: 12.5vw;
-  left: 32.5vw;
-  width: 64.5vw;
-  height: 1px;
-  background-color: #000;
-  transform: scaleX(0);
-  transform-origin: left; /* рост слева направо */
-  z-index: 5;
 }
 
 .l-block-3-line-2 {
@@ -619,7 +591,7 @@ body {
     display: flex;
     margin-bottom: 4vw;
     justify-content: space-between;
-    z-index: 2;
+    z-index: 12;
 }
 
 .text-col-1 h2,
@@ -727,8 +699,37 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: -13vw;
-    z-index: 1;
+    z-index: 11;
 }
+
+/* ЧЕРНАЯ ВЕРТИКАЛЬ */
+.line-v-anim {
+  position: absolute;
+  top: 2.5vw;
+  bottom: 1.5vw;
+  left: 32.5vw;
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top;
+  width: 1px;
+  background: #000;
+  z-index: 10;
+  will-change: transform;
+}
+
+/* ЧЕРНАЯ ГОРИЗОНТАЛЬ */
+.line-h-anim {
+  position: absolute;
+  top: 12.5vw;           /* ТОЧКА ПЕРЕСЕЧЕНИЯ */
+  left: 32.5vw;
+  width: 64.5vw;
+  height: 1px;
+  background: #000;
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 10;
+  will-change: transform;
+}
+
 
 .foto-cont-nr {
   padding-right: 2.19vw;
@@ -1021,6 +1022,7 @@ body {
 }
 
 .g-bb-nav {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 4.75vw;
@@ -1033,16 +1035,75 @@ body {
   font-size: 2.25vw;
   font-weight: 600;
   letter-spacing: -0.03em;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.g-bb-nav span.is-active {
+  opacity: 1;
+  transform: translateY(-2vw);
+}
+
+.underline {
+  position: absolute;
+  bottom: -0.25vw;
+  left: 0;
+  height: 2px;
+  width: 100%;             /* всегда 100% */
+  background: black;
+  transform: scaleX(0);    /* изначально скрыта */
+  transform-origin: left;  /* рост от левой границы */
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* При активации растем слева направо */
+.g-bb-nav span.is-active .underline {
+  transform: scaleX(1);
+}
+
+/* Цифра изначально скрыта под текстом */
+.nav-number {
+  position: absolute;
+  top: 100%; /* сразу под текстом */
+  left: 50%;
+  transform: translate(-50%, -2.5vw); /* сдвигаем вверх, чтобы выезжала сверху вниз */
+  opacity: 0;
+  font-size: 1.5vw;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+  pointer-events: none; /* чтобы цифры не мешали клику */
+  margin-top: 0.5vw;
+}
+
+/* При активации плавно показываем и опускаем вниз */
+.g-bb-nav span.is-active .nav-number {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .g-bb-nav-content {
+  position: relative;
+  z-index: 11;
   padding-left: 2.13vw;
   display: flex;
   gap: 1.13vw;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s cubic-bezier(.22,.61,.36,1);
+}
+
+.g-bb-nav-content.is-hidden {
+  opacity: 0;
+  transform: translateY(2vw);
+  pointer-events: none;
 }
 
 .bb-card-content {
-  background-color: #000000;
+  background-color: #FFFFFF;
   padding-left: 2.94vw;
   width: 62.19vw;
   border-radius: 2.06vw;
@@ -1060,7 +1121,7 @@ body {
 }
 
 .g-bb-nav-content p {
-  color: #FFFFFF;
+  color: #000000;
   font-size: 1.5vw;
   width: 55vw;
   padding-top: 2vw;
@@ -1096,6 +1157,7 @@ body {
   width: 1.13vw;
   margin-left: 13vw;
     margin-top: 6vw;
+    cursor: pointer;
 }
 
 .article-zag {
@@ -1131,11 +1193,11 @@ body {
 .g-art-text {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .g-art-zag {
-  margin-top: 0.5vw;
+  margin-top: 1.5vw;
+  margin-bottom: 7.4vw;
   font-size: 1.5vw;
   width: 19vw;
 }
@@ -1230,6 +1292,7 @@ body {
 .f-col-w {
   width: 47.5vw;
   height: 29.88vw;
+  z-index: 11;
 }
 
 .f-col-w.is-visible {
@@ -1270,6 +1333,9 @@ body {
     line-height: 111%;
     color: #000000;
     margin: 0;
+      opacity: 0;
+  transform: translateY(2vw);
+  transition: transform 2s cubic-bezier(0.25, 1, 0.5, 1), opacity 2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .opis-col-w {
@@ -1280,6 +1346,21 @@ body {
   line-height: 148%;
   letter-spacing: -0.04em;
   color: #000000;
+    opacity: 0;
+  transform: translateY(2.5vw);
+  transition: transform 2s cubic-bezier(0.25, 1, 0.5, 1), opacity 2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.text-col-w h2.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s; /* h2 подлетает первым */
+}
+
+.opis-col-w.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.75s; /* описание появляется чуть позже */
 }
 
 
