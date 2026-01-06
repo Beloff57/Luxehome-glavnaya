@@ -95,8 +95,6 @@
 </div>
   <div class="col-l2">
       <span class="line-v-anim"></span>
-
-  <!-- ЧЕРНАЯ ГОРИЗОНТАЛЬ -->
   <span class="line-h-anim"></span>
     <div class="foto-cont-nr-2">
     <img src="images/nr-2.png" alt="" class="f-col-l-2">
@@ -788,11 +786,11 @@ window.addEventListener('scroll', () => {
 
   /* 🔹 ТОЧКА ВКЛЮЧЕНИЯ (РАНЬШЕ) */
   const darkStart =
-    block2.offsetTop + block2.offsetHeight - vh * 0.7;
+    block2.offsetTop + block2.offsetHeight - vh * 0.8;
 
   /* 🔹 ТОЧКА ВЫКЛЮЧЕНИЯ (РАНЬШЕ) */
   const darkEnd =
-    blockBlack.offsetTop + blockBlack.offsetHeight - vh * 0.92;
+    blockBlack.offsetTop + blockBlack.offsetHeight - vh * 0.89;
 
   if (y >= darkStart && y < darkEnd && !isDark) {
     isDark = true;
@@ -821,7 +819,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!hLine || !v1Line || !v2Line) return;
 
   const hTotalWidth = 95.7; // ширина горизонтали в vw
-  const v1Pos = 43;
+  const v1Pos = 44.5;
   const v2Pos = 85.5;
   const vHeightVW = 27.42; // длина вертикалей в vw
 
@@ -957,32 +955,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let activeIndex = 0;
   let isAnimating = false;
+  let hasPlayedIntro = false;
 
-const data = [ 
-  { text: 'Контролирует сроки создания и реализации, и все организационные моменты, заводит на проект внешних подрядчиков', video: 'images/v-pr1.svg' },
-  { text: 'Разрабатывает визуальную концепцию, подбирает ткани и формирует общий стиль проекта', video: 'images/v-pr1.svg' }, 
-  { text: 'Производство изделий с точным соблюдением размеров и утверждённых материалов', video: 'images/v-pr1.svg' }, 
-  { text: 'Профессиональный монтаж карнизов с точной геометрией и надёжной фиксацией', video: 'images/v-pr1.svg' }, 
-  { text: 'Навеска изделий с выверкой складок и финальной подгонкой', video: 'images/v-pr1.svg' }, 
-  { text: 'Финальный результат, который вызывает эмоции и завершает образ пространства', video: 'images/v-pr1.svg' } ];
+  const data = [ 
+    { text: 'Контролирует сроки создания и реализации, и все организационные моменты, заводит на проект внешних подрядчиков', video: 'images/v-pr1.svg' },
+    { text: 'Разрабатывает визуальную концепцию, подбирает ткани и формирует общий стиль проекта', video: 'images/v-pr1.svg' }, 
+    { text: 'Производство изделий с точным соблюдением размеров и утверждённых материалов', video: 'images/v-pr1.svg' }, 
+    { text: 'Профессиональный монтаж карнизов с точной геометрией и надёжной фиксацией', video: 'images/v-pr1.svg' }, 
+    { text: 'Навеска изделий с выверкой складок и финальной подгонкой', video: 'images/v-pr1.svg' }, 
+    { text: 'Финальный результат, который вызывает эмоции и завершает образ пространства', video: 'images/v-pr1.svg' }
+  ];
+
+  /* ---------- Первичная анимация при появлении ---------- */
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasPlayedIntro) {
+        hasPlayedIntro = true;
+        content.classList.add('is-in');
+        observer.disconnect();
+      }
+    });
+  }, {
+    threshold: 0.85
+  });
+
+  observer.observe(content);
+
+  /* ---------- Смена контента ---------- */
 
   function changeContent(index) {
-    if (index === activeIndex || isAnimating) return;
+    if (index === activeIndex || isAnimating || !hasPlayedIntro) return;
     isAnimating = true;
 
-    content.classList.add('is-hidden');
+    /* уходим: сначала видео, потом карточка */
+    content.classList.remove('is-in');
+    content.classList.add('is-out');
+
     setTimeout(() => {
       textEl.textContent = data[index].text;
       videoImg.src = data[index].video;
-      content.classList.remove('is-hidden');
+
+      /* появляемся: карточка → видео */
+      content.classList.remove('is-out');
+      content.classList.add('is-in');
+
       activeIndex = index;
       isAnimating = false;
     }, 450);
   }
 
+  /* ---------- Навигация ---------- */
+
   navItems.forEach(item => {
     item.addEventListener('click', () => {
       const index = Number(item.dataset.index);
+
+      if (index === activeIndex) return;
 
       navItems.forEach(i => i.classList.remove('is-active'));
       item.classList.add('is-active');
@@ -991,8 +1020,8 @@ const data = [
     });
   });
 });
-
 </script>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
 
