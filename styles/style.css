@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nothing+You+Could+Do&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nothing+You+Could+Do&display=swap');
 
 :root {
     --montserrat: "Montserrat", sans-serif;
     --nycd: "Nothing You Could Do", sans-serif;
+    --cormorant: "Cormorant Unicase", sans-serif;
 }
 
 body {
@@ -388,6 +389,7 @@ body {
   color: #FFFFFF;
   transform: translateX(100%);
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 11;
 }
 
 .teg-article {
@@ -410,7 +412,7 @@ body {
   transform: translateX(0);
 }
 
-.lustry-cat-1 h1 {
+.lustry-cat-1 h2 {
     font-family: var(--montserrat);
     font-size: 3vw;
     font-weight: 500;
@@ -493,7 +495,7 @@ body {
     height: 100%;
 }
 
-.g-block-2 h1 {
+.g-block-2 h2 {
     margin-bottom: 0vw;
   margin-left: 2.13vw;
   font-size: 4vw;
@@ -550,7 +552,7 @@ body {
 
 .h-left-2 {
   left: 0;
-  width: 51%;
+  width: 51.7%;
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -558,7 +560,7 @@ body {
 /* правая — растёт справа → влево */
 .h-right-2 {
   right: 0;
-  width: 49%;
+  width: 48.3%;
   transform: scaleX(0);
   transform-origin: right;
 }
@@ -934,6 +936,16 @@ body {
     overflow: hidden;
 }
 
+.bb-rev-line{
+  margin-top: 1vw;
+  position: relative;
+  margin-left: 2.13vw;
+  width: 95.7%;
+  height: 1px;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
 .bb-h-grow {
     position: absolute;
     top: 0;
@@ -1192,6 +1204,178 @@ body {
     cursor: pointer;
 }
 
+
+.otzyv-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 22.19vw);
+  gap: 2vw;
+  padding: 0 2.13vw 0;
+  position: relative;
+  z-index: 11;
+}
+
+/* карточка */
+.otzyv-card{
+  width: 22.19vw;
+  height: 28.75vw;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* фото на всю карточку */
+.otzyv-media{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.otzyv-media::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 50%; /* ≈ треть изображения */
+  z-index: 2;
+
+  background: linear-gradient(
+  to top,
+  rgba(0,0,0,1.00) 0%,
+  rgba(0,0,0,0.90) 30%,
+  rgba(0,0,0,0.55) 55%,
+  rgba(0,0,0,0.15) 75%,
+  rgba(0,0,0,0.00) 100%
+);
+
+  pointer-events: none;
+}
+
+.otzyv-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0; /* без скруглений у картинки */
+}
+
+/* год */
+.otzyv-year{
+  position: absolute;
+  top: 0.44vw;
+  left: 0.44vw;
+  padding: 0.38vw 1vw;
+  border: 0.0625vw solid #FFFFFF;
+  border-radius: 1.47vw;
+  font-size: 1vw;
+  color: #FFFFFF;
+  line-height: 1;
+  z-index: 3;
+}
+
+/* заголовок на фото */
+.otzyv-title{
+  position: absolute;
+  left: 1vw;
+  right: 1vw;
+  bottom: 7.2vw;
+  width: 15vw;
+  color: #fff;
+  font-size: 1.5vw;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 111%;
+  text-shadow: 0 0.25vw 1vw rgba(0,0,0,0.45);
+  z-index: 4;
+  opacity: 1;
+  transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+  pointer-events: none; 
+}
+
+.otzyv-card:hover .otzyv-title{
+  opacity: 0;
+}
+
+/* ===== НИЖНЯЯ ПАНЕЛЬ (общая для всех) ===== */
+.otzyv-panel{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(10vw);
+  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+
+  /* контейнер без фона: фон задаём секциями */
+  background: transparent;
+}
+
+/* при hover раскрываем */
+.otzyv-card:hover .otzyv-panel{
+  transform: translateY(0);
+}
+
+/* ===== секция автора (всегда тёмная) ===== */
+.otzyv-author{
+  padding: 0.94vw;
+  display: flex;
+  align-items: center;
+  gap: 1.19vw;
+  background-color: #202020;
+  color: #fff;
+}
+
+/* ===== секция текста (всегда белая) ===== */
+.otzyv-text{
+  padding: 1vw;
+  background: #ffffff;
+  color: #000000;
+  font-size: 0.88vw;
+  line-height: 142%;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  transform: translateY(1vw);
+  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.otzyv-card:hover .otzyv-text{
+  transform: translateY(0);
+  transition-delay: 90ms;
+}
+
+/* ===== Автор стили ===== */
+.otzyv-avatar{
+  width: 4.81vw;
+  height: 4.81vw;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.otzyv-name{
+  font-size: 1.25vw;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+.otzyv-role{
+  margin-top: 0.3vw;
+  font-size: 0.88vw;
+  letter-spacing: -0.02em;
+  font-weight: 300;
+}
+
+
+
+
 .article-zag {
   display: flex;
   justify-content: space-between;
@@ -1200,11 +1384,28 @@ body {
   margin-top: 18.75vw;
 }
 
-.article-zag h1{
+.article-zag h2 {
   padding-left: 2.13vw;
   font-size: 3vw;
   font-weight: 600;
   margin-bottom: 0.5vw;
+  letter-spacing: -0.02em;
+}
+
+.otzyvy-zag {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 98%;
+  margin-top: 6.56vw;
+}
+
+.otzyvy-zag h2 {
+  padding-left: 2.13vw;
+  font-size: 3vw;
+  font-weight: 500;
+  margin-bottom: 0.5vw;
+  letter-spacing: -0.04em;
 }
 
 .g-art-content {
@@ -1250,9 +1451,11 @@ body {
 }
 
 .g-bb-podis {
+  font-family: var(--cormorant);
+  text-transform: uppercase;
   font-size: 4vw;
     font-weight: 500;
-    width: 36vw;
+    width: 37vw;
     text-align: center;
     padding-left: 33vw;
     margin: 0;
@@ -1571,14 +1774,15 @@ body {
   position: absolute;
   left: 0;
   top: 0.6vw;
-  font-size: 0.95vw;
-  color: #9E9E9E;
+  font-size: 1vw;
+  color: #727272;
+  font-weight: 300;
+  letter-spacing: -0.04em;
   pointer-events: none;
   transition: 0.3s ease;
 }
 
 /* анимация label */
-.bb-field input:focus + label,
 .bb-field input:not(:placeholder-shown) + label {
   opacity: 0;
 }
