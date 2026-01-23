@@ -1391,11 +1391,15 @@ body {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    transform: translateY(3.6vw);
+
+  transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
 }
 
-.otzyv-card:hover .otzyv-text{
+.otzyv-card:hover .otzyv-text {
   transform: translateY(0);
-  transition-delay: 90ms;
+  transition-delay: 0.18s;
 }
 
 /* ===== Автор стили ===== */
@@ -1429,7 +1433,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   width: 98%;
-  margin-top: 18.75vw;
+  margin-top: 6.38vw;
 }
 
 .article-zag h2 {
