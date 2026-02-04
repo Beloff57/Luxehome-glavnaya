@@ -2335,12 +2335,13 @@ padding-right: 11.47vw;
 }
 
 .g-nr h2 {
-    margin-bottom: 0vw;
+    margin-bottom: 0.5vw;
   margin-left: 2.13vw;
   font-size: 5.455vw;
   font-family: var(--montserrat);
   font-weight: 500;
   letter-spacing: -0.03em;
+  margin-top: 0;
 }
 
 .zag-action {
